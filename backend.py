@@ -3,7 +3,8 @@ from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import random
-from gemini import attribute_Prediction
+# from gemini import attribute_Prediction
+from workflow import attribute_Prediction
 from google.api_core.exceptions import ResourceExhausted
 
 # Initialize the FastAPI app
@@ -44,7 +45,7 @@ def search_variants(search_query: SearchQuery):
         query_text = search_query.query
         attributes = attribute_Prediction(query_text)
         results = []
-        for i in attributes['result']:
+        for i in attributes['classification']:
             results.append({
                 "value": i['attribute'],
                 "reason": i['reason']
